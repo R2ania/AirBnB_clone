@@ -8,13 +8,13 @@ class BaseModel():
 	''' Is the base class for the other classes'''
 	def __init__(self):
 		''' Constructor'''
-		self.id = str(uid.uuid4())
+		self.id = str(uuid.uuid4())
 		self.created_at = datetime.datetime.utcnow()
 		self.updated_at = datetime.datetime.utcnow()
 
 	def save(self):
 		''' update the instance (updated_at) with the currnt datetime'''
-		return datetime.datetime.utcnow(self.updated_at)
+		self.updated_at = datetime.datetime.utcnow()
 
 
 	def to_dict(self):

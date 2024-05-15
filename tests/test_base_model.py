@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 '''This is the Test File For Base Model'''
 import unittest
-from models.base_models import BaseModel
+from models.base_model import BaseModel
 
 
 class TestBasemodel(unittest.TestCase):
@@ -37,11 +37,12 @@ class TestBasemodel(unittest.TestCase):
 	def test__str__(self):
 		'''Test __str__ mehod'''
 		my_model = BaseModel()
-		self.assertTrue(str(my_model).startswith('[BaseModel]')
-		self.assertIn(my_model.id, str(my_model))
+		self.assertTrue(str(my_model).startswith('[BaseModel]'))
 		self.assertIn(str(my_model.__dict__), str(my_model))
 
 
-if __name__ == "__main__"
-unittest.main()
+
+
+if __name__ == '__main__':
+	unittest.main()
 

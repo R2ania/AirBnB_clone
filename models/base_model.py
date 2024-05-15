@@ -17,7 +17,7 @@ class BaseModel():
 		return datetime.datetime.utcnow(self.updated_at)
 
 
-	def to_dic(self):
+	def to_dict(self):
 		'''return a dictionary contaning all keys of instances'''
 		dic = self.__dict__.copy()
 		dic["__class__"] = self.__class__.__name__

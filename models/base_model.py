@@ -4,7 +4,7 @@ import uuid
 import datetime
 
 
-class Basemodel():
+class BaseModel():
 	''' Is the base class for the other classes'''
 	def __init__(self):
 		''' Constructor'''
@@ -19,6 +19,15 @@ class Basemodel():
 
 	def to_dic(self):
 		'''return a dictionary contaning all keys of instances'''
-		return self.__dict__ and self.__class__
-		datetime.isoformat(self.created_at, self.updated_at)
+		dic = self.__dict__.copy()
+		dic["__class__"] = self.__class__.__name__
+		dic["created_at"] = self.created_at.isoformat()
+		dic["updated_at"] = self.updated_at.isoformat()
+		return dic
+
+
+	def __str__(self):
+		'''Print class name,id and the values'''
+		class_name = self.__class__.__name__
+		return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
 

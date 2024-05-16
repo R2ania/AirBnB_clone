@@ -6,11 +6,25 @@ import datetime
 
 class BaseModel():
 	''' Is the base class for the other classes'''
-	def __init__(self):
+	def __init__(self, *args, **kwargs):
 		''' Constructor'''
-		self.id = str(uuid.uuid4())
-		self.created_at = datetime.datetime.utcnow()
-		self.updated_at = datetime.datetime.utcnow()
+		datetime_format = "%d/%m/%y"
+		if kwargs:
+			for key, value in kwargs.itms():
+				if key == "__class__":
+					continue
+				elif key == "created_at" or "updated_at":
+					setattr(self, key, datetime.strptime\
+						(value, datetime_format))
+				else:
+					setattr(self, key, value)
+		else:
+			self.id = str(uuid.uuid4())
+
+
+			self.created_at = (datetime.datetime.utcnow())
+			self.updated_at = (datetime.datetime.utcnow())
+
 
 	def save(self):
 		''' update the instance (updated_at) with the currnt datetime'''

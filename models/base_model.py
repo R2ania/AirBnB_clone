@@ -2,6 +2,7 @@
 '''This is The Base module its represent the Backbone of the project'''
 import uuid
 import datetime
+import models
 
 
 class BaseModel():
@@ -24,11 +25,13 @@ class BaseModel():
 
 			self.created_at = (datetime.datetime.utcnow())
 			self.updated_at = (datetime.datetime.utcnow())
+		models.storage.new(self)
 
 
 	def save(self):
 		''' update the instance (updated_at) with the currnt datetime'''
 		self.updated_at = datetime.datetime.utcnow()
+		models.storage.save(self)
 
 
 	def to_dict(self):

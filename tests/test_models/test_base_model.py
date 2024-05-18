@@ -6,7 +6,7 @@ from datetime import datetime
 from models.base_model import BaseModel
 
 
-class TestBasemodel(unittest.TestCase):
+class TestBaseModel(unittest.TestCase):
 	def test__init__(self):
 		'''Test Constrctor'''
 		my_model = BaseModel()

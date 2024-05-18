@@ -31,7 +31,7 @@ class BaseModel():
 	def save(self):
 		''' update the instance (updated_at) with the currnt datetime'''
 		self.updated_at = datetime.datetime.utcnow()
-		models.storage.save(self)
+		models.storage.save()
 
 
 	def to_dict(self):

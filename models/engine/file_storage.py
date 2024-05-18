@@ -22,17 +22,15 @@ class FileStorage:
 		FileStorage.__objects[key] = obj
 
 
-	def seve(self):
+	def save(self):
 		'''serializes the dictionry to json file'''
-		with open(FileStorage.__file_path, "w", encoding="utf-8") \
-				as file:	
-		json.dump(FaileStorage.__objects, file)
+		with open(FileStorage.__file_path, "w") as file:	
+			json.dump(FileStorage.__objects, file)
 
 
-	def relaoud(self):
+	def reload(self):
 		'''check the if the json file is exist and deserialize it'''
 		if os.path.exists(FileStorage.__file_path):
-		with open(FileStorage.__file_path, "r", encoding="utf-8") \
-				as file:
-		json.load(FileStorage.__objects, file)
+			with open(FileStorage.__file_path, "r") as file:
+				json.load(FileStorage.__objects, file)
 

@@ -2,9 +2,13 @@
 ''' This model for storing data '''
 import json
 import os
-from models.base_model import BaseModel
+
+
+
 
 class FileStorage:
+
+
 	'''this class for storing data'''
 	__file_path = "file.json" 
 	__objects = {}
@@ -32,5 +36,5 @@ class FileStorage:
 		'''check the if the json file is exist and deserialize it'''
 		if os.path.exists(FileStorage.__file_path):
 			with open(FileStorage.__file_path, "r") as file:
-				json.load(FileStorage.__objects, file)
+				json.load(file)
 

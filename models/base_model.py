@@ -1,61 +1,56 @@
 #!/usr/bin/python3
-'''This is The Base module its represent the Backbone of the project'''
+"""This script is the base model"""
+
 import uuid
 from datetime import datetime
-from models import  storage
+from models import storage
 
 
+class BaseModel:
 
+    """Class from which all other classes will inherit"""
 
-class BaseModel():
+    def __init__(self, *args, **kwargs):
+        """Initializes instance attributes
 
+        Args:
+            - *args: list of arguments
+            - **kwargs: dict of key-values arguments
+        """
 
-	''' Is the base class for the other classes'''
+        if kwargs is not None and kwargs != {}:
+            for key in kwargs:
+                if key == "created_at":
+                    self.__dict__["created_at"] = datetime.strptime(
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "updated_at":
+                    self.__dict__["updated_at"] = datetime.strptime(
+                        kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                else:
+                    self.__dict__[key] = kwargs[key]
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
 
+    def __str__(self):
+        """Returns official string representation"""
 
-	def __init__(self, *args, **kwargs):
-		'''
-		Initialize instance attributes
+        return "[{}] ({}) {}".\
+            format(type(self).__name__, self.id, self.__dict__)
 
+    def save(self):
+        """updates the public instance attribute updated_at"""
 
-		Args:
-		-*args: List of arguments
-		-**kwargs: dict of key-value arguments
-'''
-		datetime_format = "%d/%m/%y"
-		if kwargs:
-			for key, value in kwargs.itms():
-				if key == "__class__":
-					continue
-				elif key == "created_at" or "updated_at":
-					setattr(self, key, datetime.strptime\
-						(value, datetime_format))
-				else:
-					setattr(self, key, value)
-		else:
-			self.id = str(uuid.uuid4())
-			self.created_at = (datetime.datetime.utcnow())
-			self.updated_at = (datetime.datetime.utcnow())
-			storage.new(self)
+        self.updated_at = datetime.now()
+        storage.save()
 
+    def to_dict(self):
+        """returns a dictionary containing all keys/values of __dict__"""
 
-	def save(self):
-		''' update the instance (updated_at) with the currnt datetime'''
-		self.updated_at = datetime.datetime.utcnow()
-		storage.save()
-
-
-	def to_dict(self):
-		'''return a dictionary contaning all keys of instances'''
-		dic = self.__dict__.copy()
-		dic["__class__"] = type(self).__name__
-		dic["created_at"] = dic["created_a"]t.isoformat()
-		dic["updated_at"] = dic["updated_at"].isoformat()
-		return dic
-
-
-	def __str__(self):
-		'''Print class name,id and the values'''
-		class_name = self.__class__.__name__
-		return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-
+        my_dict = self.__dict__.copy()
+        my_dict["__class__"] = type(self).__name__
+        my_dict["created_at"] = my_dict["created_at"].isoformat()
+        my_dict["updated_at"] = my_dict["updated_at"].isoformat()
+        return my_dict

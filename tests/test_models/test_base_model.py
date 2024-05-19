@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''This is the Test File For Base Model'''
 import unittest
+import models
 import os
 from datetime import datetime
 from models.base_model import BaseModel
